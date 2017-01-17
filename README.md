@@ -1,6 +1,6 @@
 # Watcher of Friends Online
 
-[TODO. There will be project description]
+Программа запрвшивает логин и пароль пользователя vk.com, затем выводит имена и фамилии всех его друзей, находящихся на данный момент в сети.
 
 # Project Goals
 
