@@ -5,11 +5,15 @@ APP_ID = 5827034  # чтобы получить app_id, нужно зареги�
 
 
 def get_user_login():
-    return input("Write your VK.com login: ")
+    login = str(input("Write your VK.com login: "))
+    assert login, 'No login'
+    return login
 
 
 def get_user_password():
-    return input("Write your VK.com password: ")
+    password = str(input("Write your VK.com password: "))
+    assert password, 'No password'
+    return
 
 
 def get_online_friends(login, password):
