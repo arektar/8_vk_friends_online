@@ -21,25 +21,28 @@ def make_vk_session(login, password):
         app_id=APP_ID,
         user_login=login,
         user_password=password,
+        scope='friends'
     )
-    api = vk.API(session)
-    return api
+    vk_api = vk.API(session)
+    return vk_api
 
 
-def get_online_friends(api):
-    online_friends = api.friends.getOnline()
-    return online_friends['response']
+def get_online_friends(vk_api):
+    online_friends = vk_api.friends.getOnline()
+    online_friends_data = vk_api.users.get(user_ids=online_friends)
+
+    return [(name['first_name'], name['last_name']) for name in online_friends_data]
 
 
-def output_friends_to_console(api,friends_online):
+def output_friends_to_console(friends_online):
     print("Друзья онлайн: \n")
     for friend in friends_online:
-        api.users.get(friend)
-        print("%s %s" % (friend['first_name'], friend['last_name']))
+        print("%s %s" % (friend[0], friend[1]))
+
 
 if __name__ == '__main__':
     my_login = get_user_login()
     my_password = get_user_password()
-    my_session_api = make_vk_session(my_login, my_password)
-    my_friends_online = get_online_friends(my_session_api)
-    output_friends_to_console(my_session_api, my_friends_online)
+    my_vk_api = make_vk_session(my_login, my_password)
+    my_friends_online = get_online_friends(my_vk_api)
+    output_friends_to_console(my_friends_online)
